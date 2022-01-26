@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough" xmlns:f="http://java.sun.com/jsf/core"
+
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>User Registration Form</title>
+</h:head>
+<h:body style="max-width: 500px; margin: auto;" >
+    <h:form id="form" >
+        <table>
+            <tr>
+                <td><h:outputLabel>User Name</h:outputLabel></td>
+                <td><h:inputText id="name-id" value="#{helloWorld.user.name}">
+                    <!--here the ajax is use to submit or save the data in session object-->
+                    <f:ajax execute="@this"/>
+                </h:inputText></td>
+            </tr>
+            <tr>
+                <td><h:outputLabel>Your Email</h:outputLabel></td>
+                <td><h:inputText id="email-id" value="#{helloWorld.user.email}" >
+                    <f:ajax execute="@this"/>
+                </h:inputText></td>
+            </tr>
+            <tr>
+                <td><h:outputLabel>Password</h:outputLabel></td>
+                <td><h:inputSecret id="password-id" value="#{helloWorld.user.password}">
+                    <f:ajax execute="@this"/>
+                </h:inputSecret>
+                </td>
+            </tr>
+
+            <tr>
+                <td><h:outputLabel>Gender</h:outputLabel></td>
+                <td><h:selectOneRadio value="#{helloWorld.user.gender}">
+                    <f:selectItem itemValue="Male" itemLabel="Male" />
+                    <f:selectItem itemValue="Female" itemLabel="Female" />
+                    <f:ajax execute="@this"/>
+                </h:selectOneRadio></td>
+            </tr>
+            <tr>
+                <td><h:outputLabel>Country</h:outputLabel></td>
+                <td><h:selectOneMenu value="#{helloWorld.user.favItem}">
+                    <f:selectItems value="#{helloWorld.country.entrySet}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}"/>
+                    <f:ajax execute="@this"/>
+                </h:selectOneMenu></td>
+            </tr>
+            <tr><td><h:outputLabel>Address</h:outputLabel></td>
+                <td><h:inputTextarea value="#{helloWorld.user.address}" cols="50" rows="5">
+                    <f:ajax execute="@this"/>
+                </h:inputTextarea></td>
+            </tr>
+        </table>
+        <h:commandButton value="Submit" type="submit">
+            <!--here we use the listener for identify the object is null or is it any data-->
+            <!--update="dialogData" is use to update the dialog box to give the data which we submit by using ajax primefaces-->
+            <!--here the oncomplete="PF('dlg1').show();" is just like the onclick="PF('dlg1').show();" call-->
+            <p:ajax event="click" listener="#{helloWorld.checkUserObject()}" update="dialogData" oncomplete="PF('dlg1').show();" />
+        </h:commandButton>
+        <h:commandButton value="Reset" type="reset" />
+    </h:form>
+
+
+    <p:dialog id="dialogData" header="You have Registered with us Successfully, Your Details are The Following." widgetVar="dlg1" minHeight="40">
+        <h2><h:outputText value="Hello #{helloWorld.user.name}"/></h2>
+        <table>
+            <tr>
+                <td><b>Email: </b></td>
+                <td><h:outputText value="#{helloWorld.user.email}"/><br/></td>
+            </tr>
+            <tr>
+                <td><b>Password:</b></td>
+                <td><h:outputText value="#{helloWorld.user.password}"/><br/></td>
+            </tr>
+            <tr>
+                <td><b>Gender:</b></td>
+                <td><h:outputText value="#{helloWorld.user.gender}"/><br/></td>
+            </tr>
+            <tr>
+                <td><b>Country:</b></td>
+                <td><h:outputText value="#{helloWorld.user.favItem}"/><br/></td>
+            </tr>
+            <tr>
+                <td><b>Address: </b></td>
+                <td><h:outputText value="#{helloWorld.user.address}"/></td>
+            </tr>
+        </table>
+    </p:dialog>
+
+<!--    <f:view >-->
+<!--        <h2><h:outputText value="Hello #{user.name}"/></h2>-->
+<!--        <table>-->
+<!--            <tr>-->
+<!--                <td><b>Email: </b></td>-->
+<!--                <td><h:outputText value="#{user.email}"/><br/></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><b>Password:</b></td>-->
+<!--                <td><h:outputText value="#{user.password}"/><br/></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><b>Gender:</b></td>-->
+<!--                <td><h:outputText value="#{user.gender}"/><br/></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><b>Country:</b></td>-->
+<!--                <td><h:outputText value="#{user.favItem}"/><br/></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><b>Address: </b></td>-->
+<!--                <td><h:outputText value="#{user.address}"/></td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--    </f:view>-->
+
+
+        <!--this is editor of primeface-->
+<!--    <p:outputLabel for="editor" value="Editor"/>-->
+<!--    <p:editor id="editor"/>-->
+
+</h:body>
+</html>
